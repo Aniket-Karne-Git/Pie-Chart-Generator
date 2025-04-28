@@ -1,0 +1,77 @@
+<div class="main-div">
+  <div class="card text-center mx-auto border border-dark" style="width: 50%">
+    <div class="card-header" style="background-color: blueviolet; color: white">
+      <h5>Pie Chart Generator</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="chartForm" (ngSubmit)="generateChart()">
+        <!-- Dynamic rows for label and value -->
+        <div formArrayName="data">
+          <div
+            *ngFor="let entry of dataArray.controls; let i = index"
+            [formGroupName]="i"
+            class="d-flex align-items-center mb-3"
+          >
+            <label class="me-2 mb-0">Name:</label>
+            <input
+              type="text"
+              class="form-control me-3"
+              formControlName="label"
+              style="width: 30%"
+            />
+
+            <label class="me-2 mb-0">Value:</label>
+            <input
+              type="number"
+              class="form-control me-3"
+              formControlName="value"
+              style="width: 20%"
+            />
+
+            <button
+              type="button"
+              class="btn btn-danger btn-sm"
+              (click)="removeData(i)"
+              [disabled]="dataArray.length === 1"
+              title="Delete row"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-start gap-4  mt-4">
+          <!-- Add Data Button -->
+          <button
+            style="margin-left: 95px"
+            class="btn btn-primary"
+            type="button"
+            (click)="addData()"
+          >
+            Add Data
+          </button>
+
+          <!-- Generate Pie Chart Button -->
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="chartForm.invalid"
+          >
+            Generate Chart
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Chart Display Section -->
+<div style="display: flex; justify-content: center; align-items: center">
+  <div *ngIf="chartOption" style="margin-top: 30px">
+    <echarts
+      [options]="chartOption"
+      [autoResize]="true"
+      style="height: 600px; width: 150%"
+    ></echarts>
+  </div>
+</div>

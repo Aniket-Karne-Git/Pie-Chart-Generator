@@ -3,6 +3,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": ["jquery"],  // Include jQuery types explicitly
+    "typeRoots": ["node_modules/@types"],  // Ensure type roots are set
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
